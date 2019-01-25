@@ -6,7 +6,8 @@ import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class Tunnel {private String name;
+public class Tunnel {
+    private String name;
     private Deque<Train> trains;
     private AtomicBoolean currentDirection;
 

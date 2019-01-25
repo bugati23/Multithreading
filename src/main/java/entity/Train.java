@@ -2,22 +2,21 @@ package entity;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import service.TunnelManager;
+import service.TunnelSupervisor;
 
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 public class Train extends Thread {
     private static final int TIME_IN_TUNNEL_IN_SECONDS = 3;
     private static final Logger LOGGER = LogManager.getLogger(Train.class);
     private int number;
     private boolean direction;
-    private TunnelManager tunnelManager;
+    private TunnelSupervisor tunnelSupervisor;
 
     public Train(){}
 
-    public Train(TunnelManager tunnelManager, boolean direction, int number){
-        this.tunnelManager = tunnelManager;
+    public Train(TunnelSupervisor tunnelSupervisor, boolean direction, int number){
+        this.tunnelSupervisor = tunnelSupervisor;
         this.direction = direction;
         this.number = number;
     }
@@ -38,12 +37,12 @@ public class Train extends Thread {
         this.direction = direction;
     }
 
-    public TunnelManager getTunnelManager() {
-        return tunnelManager;
+    public TunnelSupervisor getTunnelSupervisor() {
+        return tunnelSupervisor;
     }
 
-    public void setTunnelManager(TunnelManager tunnelManager) {
-        this.tunnelManager = tunnelManager;
+    public void setTunnelSupervisor(TunnelSupervisor tunnelSupervisor) {
+        this.tunnelSupervisor = tunnelSupervisor;
     }
 
     @Override
@@ -57,11 +56,11 @@ public class Train extends Thread {
         Train train = (Train) o;
         return getNumber() == train.getNumber() &&
                 getDirection() == train.getDirection() &&
-                Objects.equals(getTunnelManager(), train.getTunnelManager());
+                Objects.equals(getTunnelSupervisor(), train.getTunnelSupervisor());
     }
-
     @Override
     public int hashCode() {
-        return Objects.hash(getNumber(), getDirection(), getTunnelManager());
+        return Objects.hash(getNumber(), getDirection(), getTunnelSupervisor());
     }
+
 }

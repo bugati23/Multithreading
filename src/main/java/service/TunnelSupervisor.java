@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class TunnelManager implements TrainAction{
+public class TunnelSupervisor implements TrainAction {
     private static final int POOL_SIZE = 3;
     private static final String FIRST_TUNNEL_NAME = "FIRST";
     private static final String SECOND_TUNNEL_NAME = "SECOND";
@@ -18,22 +18,22 @@ public class TunnelManager implements TrainAction{
     private Semaphore firstTunnelSemaphore;
     private Semaphore secondTunnelSemaphore;
     private static AtomicBoolean instanceCreated = new AtomicBoolean();
-    private static TunnelManager instance;
+    private static TunnelSupervisor instance;
     private static Lock lock = new ReentrantLock();
 
-    private TunnelManager() {
+    private TunnelSupervisor() {
         firstTunnel = new Tunnel(FIRST_TUNNEL_NAME);
         secondTunnel = new Tunnel(SECOND_TUNNEL_NAME);
         firstTunnelSemaphore = new Semaphore(POOL_SIZE, true);
         secondTunnelSemaphore = new Semaphore(POOL_SIZE, true);
     }
 
-    public static TunnelManager getInstance() {
+    public static TunnelSupervisor getInstance() {
         if (!instanceCreated.get()) {
             lock.lock();
             try {
                 if (instance == null) {
-                    instance = new TunnelManager();
+                    instance = new TunnelSupervisor();
                     instanceCreated.set(true);
                 }
             } finally {
@@ -45,18 +45,20 @@ public class TunnelManager implements TrainAction{
 
     @Override
     public Tunnel enterInTunnel(Train train) {
-        return null;
     }
 
     @Override
     public void leaveTunnel(Tunnel tunnel) {
     }
 
+    private void startTrainInTunnel(Tunnel tunnel, Train train) {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TunnelManager that = (TunnelManager) o;
+        TunnelSupervisor that = (TunnelSupervisor) o;
         return Objects.equals(firstTunnel, that.firstTunnel) &&
                 Objects.equals(secondTunnel, that.secondTunnel) &&
                 Objects.equals(firstTunnelSemaphore, that.firstTunnelSemaphore) &&
@@ -66,5 +68,13 @@ public class TunnelManager implements TrainAction{
     @Override
     public int hashCode() {
         return Objects.hash(firstTunnel, secondTunnel, firstTunnelSemaphore, secondTunnelSemaphore);
+    }
+
+    public Tunnel getFirstTunnel() {
+        return firstTunnel;
+    }
+
+    public Tunnel getSecondTunnel() {
+        return secondTunnel;
     }
 }
