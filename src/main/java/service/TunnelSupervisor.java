@@ -45,13 +45,45 @@ public class TunnelSupervisor implements TrainAction {
 
     @Override
     public Tunnel enterInTunnel(Train train) {
+        while(true) {
+            if ((firstTunnel.getCurrentDirection() == null) || (firstTunnel.getCurrentDirection().get() == train.getDirection())) {
+                if (firstTunnelSemaphore.tryAcquire()) {
+                    startTrainInTunnel(firstTunnel, train);
+                    return firstTunnel;
+                }
+            } else {
+                if ((secondTunnel.getCurrentDirection() == null) || (secondTunnel.getCurrentDirection().get() == train.getDirection())) {
+                    if (secondTunnelSemaphore.tryAcquire()) {
+                        startTrainInTunnel(secondTunnel, train);
+                        return secondTunnel;
+                    }
+                }
+            }
+        }
     }
 
     @Override
     public void leaveTunnel(Tunnel tunnel) {
+        if (tunnel.getName().equals(firstTunnel.getName())) {
+            firstTunnel.popTrain();
+            if (firstTunnel.getTrains().isEmpty()) {
+                firstTunnel.setCurrentDirection(null);
+            }
+            firstTunnelSemaphore.release();
+        } else {
+            secondTunnel.popTrain();
+            if (secondTunnel.getTrains().isEmpty()) {
+                secondTunnel.setCurrentDirection(null);
+            }
+            secondTunnelSemaphore.release();
+        }
     }
 
     private void startTrainInTunnel(Tunnel tunnel, Train train) {
+        if (tunnel.getTrains().isEmpty()) {
+            tunnel.setCurrentDirection(new AtomicBoolean(train.getDirection()));
+        }
+        tunnel.pushTrain(train);
     }
 
     @Override

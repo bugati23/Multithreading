@@ -64,4 +64,11 @@ public class Tunnel {
     public int hashCode() {
         return Objects.hash(getName(), getTrains(), getCurrentDirection());
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder(' ');
+        sb.append(name);
+        return sb.toString();
+    }
 }

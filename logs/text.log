@@ -1,0 +1,27 @@
+2019-02-26 11:02:12.000 [main] INFO  service.TunnelSupervisorTest - Train№ 2 with direction false arrived
+2019-02-26 11:02:12.009 [Thread-2] INFO  entity.Train - Train№ 2 with direction false entered in FIRST
+2019-02-26 11:02:13.008 [main] INFO  service.TunnelSupervisorTest - Train№ 6 with direction false arrived
+2019-02-26 11:02:13.010 [Thread-6] INFO  entity.Train - Train№ 6 with direction false entered in FIRST
+2019-02-26 11:02:14.010 [main] INFO  service.TunnelSupervisorTest - Train№ 1 with direction true arrived
+2019-02-26 11:02:14.011 [Thread-1] INFO  entity.Train - Train№ 1 with direction true entered in SECOND
+2019-02-26 11:02:15.011 [main] INFO  service.TunnelSupervisorTest - Train№ 8 with direction false arrived
+2019-02-26 11:02:15.011 [Thread-2] INFO  entity.Train - Train№ 2 with direction false left FIRST
+2019-02-26 11:02:15.013 [Thread-8] INFO  entity.Train - Train№ 8 with direction false entered in FIRST
+2019-02-26 11:02:16.012 [main] INFO  service.TunnelSupervisorTest - Train№ 3 with direction true arrived
+2019-02-26 11:02:16.012 [Thread-6] INFO  entity.Train - Train№ 6 with direction false left FIRST
+2019-02-26 11:02:16.014 [Thread-3] INFO  entity.Train - Train№ 3 with direction true entered in SECOND
+2019-02-26 11:02:17.013 [main] INFO  service.TunnelSupervisorTest - Train№ 9 with direction false arrived
+2019-02-26 11:02:17.013 [Thread-1] INFO  entity.Train - Train№ 1 with direction true left SECOND
+2019-02-26 11:02:17.015 [Thread-9] INFO  entity.Train - Train№ 9 with direction false entered in FIRST
+2019-02-26 11:02:18.015 [Thread-8] INFO  entity.Train - Train№ 8 with direction false left FIRST
+2019-02-26 11:02:18.015 [main] INFO  service.TunnelSupervisorTest - Train№ 4 with direction true arrived
+2019-02-26 11:02:18.017 [Thread-4] INFO  entity.Train - Train№ 4 with direction true entered in SECOND
+2019-02-26 11:02:19.016 [main] INFO  service.TunnelSupervisorTest - Train№ 5 with direction true arrived
+2019-02-26 11:02:19.016 [Thread-3] INFO  entity.Train - Train№ 3 with direction true left SECOND
+2019-02-26 11:02:19.017 [Thread-5] INFO  entity.Train - Train№ 5 with direction true entered in SECOND
+2019-02-26 11:02:20.016 [main] INFO  service.TunnelSupervisorTest - Train№ 7 with direction true arrived
+2019-02-26 11:02:20.017 [Thread-9] INFO  entity.Train - Train№ 9 with direction false left FIRST
+2019-02-26 11:02:20.017 [Thread-7] INFO  entity.Train - Train№ 7 with direction true entered in FIRST
+2019-02-26 11:02:21.017 [main] INFO  service.TunnelSupervisorTest - Train№ 10 with direction true arrived
+2019-02-26 11:02:21.018 [Thread-10] INFO  entity.Train - Train№ 10 with direction true entered in FIRST
+2019-02-26 11:02:21.019 [Thread-4] INFO  entity.Train - Train№ 4 with direction true left SECOND

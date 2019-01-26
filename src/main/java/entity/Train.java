@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import service.TunnelSupervisor;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class Train extends Thread {
     private static final int TIME_IN_TUNNEL_IN_SECONDS = 3;
@@ -47,6 +48,17 @@ public class Train extends Thread {
 
     @Override
     public void run(){
+        Tunnel tunnel = new Tunnel();
+        try {
+            tunnel = tunnelSupervisor.enterInTunnel(this);
+            LOGGER.info(toString() + " entered in " + tunnel);
+            TimeUnit.SECONDS.sleep(TIME_IN_TUNNEL_IN_SECONDS);
+        } catch (InterruptedException e) {
+            LOGGER.error(e.getMessage(), e);
+        } finally{
+            tunnelSupervisor.leaveTunnel(tunnel);
+            LOGGER.info(toString() + " left " + tunnel);
+        }
     }
 
     @Override
@@ -63,4 +75,11 @@ public class Train extends Thread {
         return Objects.hash(getNumber(), getDirection(), getTunnelSupervisor());
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Train");
+        sb.append("№ ").append(number);
+        sb.append(" with direction ").append(direction);
+        return sb.toString();
+    }
 }

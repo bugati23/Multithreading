@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<trains xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://www.example.com/trains"
+         xsi:schemaLocation="http://www.example.com/trains  Train.xsd">
+    <train>
+        <number>1</number>
+        <direction>true</direction>
+    </train>
+    <train>
+        <number>2</number>
+        <direction>false</direction>
+    </train>
+    <train>
+        <number>3</number>
+        <direction>true</direction>
+    </train>
+    <train>
+        <number>4</number>
+        <direction>true</direction>
+    </train>
+    <train>
+        <number>5</number>
+        <direction>true</direction>
+    </train>
+    <train>
+        <number>6</number>
+        <direction>false</direction>
+    </train>
+    <train>
+        <number>7</number>
+        <direction>true</direction>
+    </train>
+    <train>
+        <number>8</number>
+        <direction>false</direction>
+    </train>
+    <train>
+        <number>9</number>
+        <direction>false</direction>
+    </train>
+    <train>
+        <number>10</number>
+        <direction>true</direction>
+    </train>
+</trains>

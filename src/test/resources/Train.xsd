@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.example.com/trains"
+        xmlns:tns="http://www.example.com/trains"
+        elementFormDefault="qualified">
+    <element name="trains">
+        <complexType>
+            <sequence>
+                <element name="train"
+                         type="tns:Train"
+                         maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+    </element>
+    <complexType name="Train">
+        <all>
+            <element name="number" type="positiveInteger"/>
+            <element name="direction" type="boolean"/>
+        </all>
+    </complexType>
+</schema>

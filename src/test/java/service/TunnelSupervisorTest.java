@@ -1,11 +1,21 @@
 package service;
 
 import entity.Train;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import service.parser.TrainParser;
+import service.parser.XmlParserException;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public class TunnelSupervisorTest {
+    private static final Logger LOGGER = LogManager.getLogger(TunnelSupervisorTest.class);
     private TunnelSupervisor tunnelSupervisor;
     @Before
     public void initTunnelSupervisor(){
@@ -33,31 +43,22 @@ public class TunnelSupervisorTest {
         Assert.assertEquals(0,tunnelSupervisor.getFirstTunnel().getTrains().size());
     }
     @Test
-    public void amountInTunnel(){
-        Train train1 = new Train(tunnelSupervisor,true,1);
-        tunnelSupervisor.enterInTunnel(train1);
-        Train train2 = new Train(tunnelSupervisor,true,2);
-        tunnelSupervisor.enterInTunnel(train2);
-        Train train3 = new Train(tunnelSupervisor,true,3);
-        tunnelSupervisor.enterInTunnel(train3);
-        Train train4 = new Train(tunnelSupervisor,true,4);
-        tunnelSupervisor.enterInTunnel(train4);
-        Assert.assertEquals(3,tunnelSupervisor.getFirstTunnel().getTrains().size());
-    }
-    @Test
-    public void changeDirectionOfTunnel(){
-        Train train1 = new Train(tunnelSupervisor,true,1);
-        tunnelSupervisor.enterInTunnel(train1);
-        Train train2 = new Train(tunnelSupervisor,true,2);
-        tunnelSupervisor.enterInTunnel(train2);
-        Train train3 = new Train(tunnelSupervisor,true,3);
-        tunnelSupervisor.enterInTunnel(train3);
-        Train train4 = new Train(tunnelSupervisor,true,4);
-        tunnelSupervisor.enterInTunnel(train4);
-        Train train5 = new Train(tunnelSupervisor,true,5);
-        tunnelSupervisor.enterInTunnel(train5);
-        Train train6 = new Train(tunnelSupervisor,true,6);
-        tunnelSupervisor.enterInTunnel(train6);
-        Assert.assertFalse(tunnelSupervisor.getFirstTunnel().getCurrentDirection().get());
+    public void workTunnelSupervisor() throws XmlParserException {
+        TrainParser parser = new TrainParser();
+        Set<Train> actualSet = parser.parse("src/test/resources/Trains.xml","src/test/resources/Train.xsd");
+        List<Train> trains = new ArrayList<>(actualSet);
+        final int SLEEP_IN_SECONDS = 1;
+        try {
+            for (int i = 0; i < trains.size(); i++) {
+                TimeUnit.SECONDS.sleep(SLEEP_IN_SECONDS);
+                Train train = trains.get(i);
+                LOGGER.info(train + " arrived");
+                train.start();
+            }
+        }
+        catch (InterruptedException e) {
+            LOGGER.error(e);
+            Thread.currentThread().interrupt();
+        }
     }
 }
